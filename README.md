@@ -201,3 +201,32 @@ end
 ```
 
 then restart rake server
+
+
+### Step 8: Static folder / asstes (js, css)
+1. Add style link in the template `/todo/views/index.html.erb`
+```
+    <link type="text/css" href="/stylesheets/application.css" rel='stylesheet' />
+```
+
+2. create css file public//stylesheets/application.css
+```
+body {
+  color: purple;
+  background-color: #d8da3d; 
+}
+```
+
+3. update `todo/config.ru`
+```
+require "todo"
+
+# for reloading files if they have been modified.
+# 0 mean talk changes after 0 sconde / immediately
+use Rack::Reloader, 0
+
+# Rack::Cascade, for trying additional Rack applications if an application returns a not found or method not supported response.
+# Rack::Files, for serving static files.
+run Rack::Cascade.new([Rack::File.new('public'), Todo])
+``` 
+4. then restart rake server

@@ -4,4 +4,6 @@ require "todo"
 # 0 mean talk changes after 0 sconde / immediately
 use Rack::Reloader, 0
 
-run Todo
+# Rack::Cascade, for trying additional Rack applications if an application returns a not found or method not supported response.
+# Rack::Files, for serving static files.
+run Rack::Cascade.new([Rack::File.new('public'), Todo])
