@@ -1,7 +1,7 @@
-class Todo
-  def call(env)
-    [200, {"content-type" => "text/plain"}, ["Hello world!!"]]
-  end
-end
+require "todo"
+
+# for reloading files if they have been modified.
+# 0 mean talk changes after 0 sconde / immediately
+use Rack::Reloader, 0
 
 run Todo.new
