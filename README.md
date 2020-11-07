@@ -40,7 +40,7 @@ use Rack::Reloader, 0
 run Todo.new
  ```
  
-### step 3 / Create HTML template:
+### step 3 / use Rack::Response
 
 let go to `lib/todo.rb`
 
@@ -48,7 +48,44 @@ Replace this long line
 ```
 [200, {"content-type" => "text/plain"}, ["Hello world!"]]
 ```
-with is middleware, the will return `html` tag not `text/plain"` with to 200 status.
+with this  middleware, that will return `html` tag not `text/plain"` with to 200 status.
 ```
 Rack::Response.new("Hello world!")
+```
+
+### step 4 / Create HTML template (erb):
+1. update `lib/todo.rb`
+
+```
+require "erb"
+
+class Todo
+  def call(env)
+    Rack::Response.new(render("index.html.erb"))
+  end
+
+  def render(template)
+    path = File.expand_path("../../views/#{template}", __FILE__)
+    ERB.new(File.read(path)).result(binding)
+  end
+end
+```
+
+2. then create the template `/todo/views/index.html.erb`
+```
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+  <head>
+    <title>My first rake app</title>
+    <style type="text/css">
+    body {
+      color: purple;
+      background-color: #d8da3d }
+    </style>
+  </head>
+
+  <body>
+    <h1>Hello World!!</h1>
+  </body>
+</html>
 ```
