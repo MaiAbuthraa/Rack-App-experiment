@@ -230,3 +230,12 @@ use Rack::Reloader, 0
 run Rack::Cascade.new([Rack::File.new('public'), Todo])
 ``` 
 4. then restart rake server
+
+
+### Step 9: Auth
+add these lines after `use Rack::Reloader, 0` 
+```
+use Rack::Auth::Basic do |username, password|
+  password == '123' 
+end
+```
