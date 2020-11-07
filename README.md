@@ -42,7 +42,7 @@ run Todo.new
  
 ### step 3 / use Rack::Response
 
-let go to `lib/todo.rb`
+let's go to `lib/todo.rb`
 
 Replace this long line 
 ```
@@ -88,4 +88,17 @@ end
     <h1>Hello World!!</h1>
   </body>
 </html>
+```
+
+### step 4 / Build basic routes:
+inside call method `lib/todo.rb`
+
+```
+# Rack::Request, which also provides query string parsing and multipart handling.
+request = Rack::Request.new(env)
+
+case request.path
+when '/' then Rack::Response.new(render("index.html.erb"))
+else Rack::Response.new("Not Found", 404)
+end
 ```
