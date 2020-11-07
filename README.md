@@ -40,4 +40,15 @@ use Rack::Reloader, 0
 run Todo.new
  ```
  
+### step 3 / Create HTML template:
 
+let go to `lib/todo.rb`
+
+Replace this long line 
+```
+[200, {"content-type" => "text/plain"}, ["Hello world!"]]
+```
+with is middleware, the will return `html` tag not `text/plain"` with to 200 status.
+```
+Rack::Response.new("Hello world!")
+```

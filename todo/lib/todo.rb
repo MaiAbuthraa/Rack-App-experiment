@@ -1,6 +1,6 @@
 class Todo
   def call(env)
-    [200, {"content-type" => "text/plain"}, ["Hello world!"]]
+    Rack::Response.new("Hello world!")
   end
 end
 
